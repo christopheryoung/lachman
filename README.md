@@ -11,19 +11,18 @@ little reading
 list](http://chrisyoung.net/reading/computational-stemmatology.html) on my
 site.
 
-========
+
 Modules
 ========
 
 The following describes features not yet implemented.
 
--------------
 Lachmann.Core
 -------------
 
 Lachmann.Core exports core functionality for the Lachmann package.
 
--------------------
+
 Lachmann.Artificial
 -------------------
 
