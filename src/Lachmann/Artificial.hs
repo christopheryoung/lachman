@@ -1,3 +1,1 @@
-module Lachmann.Artificial
-
-       
+module Lachmann.Artificial () where       
