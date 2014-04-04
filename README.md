@@ -2,7 +2,7 @@
 Lachmann is a Haskell library (named after [Karl
 Lachmann](http://en.wikipedia.org/wiki/Karl_Lachmann), the 19th Century
 philologist and textual critic) for investigating the relationships between
-manuscripts. It is pretty obviously not ready for use. I mean, look at it.
+manuscripts. It is pretty obviously *not ready for use.* I mean, look at it.
 There's nothing here yet.
 
 If you're interested in background reading about textual criticism,
