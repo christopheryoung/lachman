@@ -32,9 +32,19 @@ indicating their relations.
 
 Using artificial test sets has a long history in textual criticism (see the
 reading list above), but generating them programatically seems much less
-common. 
+common.
 
 The goal of Lachmann.Artificial is to make it easy to explore and test
 different algorithms for reconstructing stemmata by providing a large set of
 examples with precisely controlled characteristics for which the correct
 stemmata are known.
+
+
+Credits and Contributors
+=======
+
+Thanks for D.S. Hutchinson for conversations about all things stemmatological
+over the years and for getting me started.
+
+Thanks to Omar Rizwan for his help at the 2014 Hac NYC Hackathon, where I got
+this library started.
