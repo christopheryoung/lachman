@@ -24,33 +24,37 @@ data Tradition = Tradition {
   ,mss :: [Manuscript]
   } deriving (Show)
 
-copyTextWithErrors :: T.Text -> T.Text
-copyTextWithErrors t = T.append t " garbage"
+copyTextWithErrors :: [T.Text] -> T.Text
+copyTextWithErrors [] = ""
+copyTextWithErrors [t] = T.append t " garbage"
+copyTextWithErrors (t:ts) = copyTextWithErrors [t]
 
-extendTradition :: Tradition -> (UUID.UUID, Int) -> Tradition
-extendTradition Tradition{edgelist, mss} (uuid, ind) = Tradition (new_edge:edgelist) (new_ms:mss) where
-  ms = mss !! ind
-  t = copyTextWithErrors $ text ms
+extendTradition :: Tradition -> MSCopySpec -> Tradition
+extendTradition Tradition{edgelist, mss} MSCopySpec{uuid, parents} = Tradition (new_edges ++ edgelist) (new_ms:mss) where
+  parent_mss = map (mss !!) parents
+  text_list = map text parent_mss
+  parent_uuids = map ms_id parent_mss
+  t = copyTextWithErrors text_list
   new_ms = Manuscript uuid t
-  new_edge = (ms_id ms, uuid)
+  new_edges = map (\x -> (x, uuid)) parent_uuids
 
-
-data MSCopyConfig = MSCopyConfig {
+data MSCopySpec = MSCopySpec {
   uuid :: UUID.UUID
   ,parents :: [Int]
   }
 
-type MSS_Spec = (UUID.UUID, Int)
-
-makeTradition :: Manuscript -> [MSS_Spec] -> Tradition
+makeTradition :: Manuscript -> [MSCopySpec] -> Tradition
 makeTradition archetype mss_spec_list = foldl extendTradition start_trad mss_spec_list where
   start_trad = Tradition [] [archetype]
-
 
 --- crud to toy around with this
 
 uuid_ = fromJust . fromString $ "c2cc10e1-57d6-4b6f-9899-38d972112d8c"
-l = [(uuid_, 0), (uuid_, 1), (uuid_, 0), (uuid_, 2)] :: [MSS_Spec]
-m1 = Manuscript uuid $ "foo" where
-  uuid = uuid_
 
+s1 = MSCopySpec uuid_ [0]
+s2 = MSCopySpec uuid_ [1]
+s3 = MSCopySpec uuid_ [1]
+s4 = MSCopySpec uuid_ [2]
+s5 = MSCopySpec uuid_ [1, 2]
+l = [s1, s2, s3, s4, s5]
+m1 = Manuscript uuid_ $ "foo"
