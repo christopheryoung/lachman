@@ -2,10 +2,11 @@
 module Main where
 
 import           Control.Monad (replicateM)
+import           Data.Text as T
 import           Data.UUID as UUID (toString)
 import           Data.UUID.V4 (nextRandom)
-import           Lachmann.Artificial
-import           Data.Text as T
+import           Lachmann.Artificial (makeTradition, MSCopySpec(MSCopySpec))
+import           Lachmann.Core (Manuscript(Manuscript))
 
 main :: IO ()
 main = do
