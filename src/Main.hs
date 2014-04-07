@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Main where
 
-import           Control.Monad (replicateM)
+import           Control.Monad (replicateM, liftM)
 import           Data.Text as T
 import           Data.UUID as UUID (toString)
 import           Data.UUID.V4 (nextRandom)
@@ -10,10 +10,7 @@ import           Lachmann.Core (Manuscript(Manuscript))
 
 main :: IO ()
 main = do
-
-  uuids <- replicateM 10 (do
-    y <- nextRandom
-    return $ T.pack $ toString y)
+  uuids <- replicateM 10 $ (liftM (T.pack . toString)) $ nextRandom
 
   let mytrad = makeTradition m1 l where
       s1 = MSCopySpec (uuids !! 0) [0]
